@@ -1,12 +1,16 @@
 package com.lew.eventtimeline.event.adapter.api;
 
 import com.lew.eventtimeline.common.PathUtil;
-import com.lew.eventtimeline.event.domain.port.api.EventDto;
+import com.lew.eventtimeline.event.domain.port.api.EventResponse;
 import com.lew.eventtimeline.event.domain.port.api.FindEventsPageUseCase;
 import com.lew.eventtimeline.event.domain.port.api.GetEventUseCase;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springdoc.api.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -22,14 +26,18 @@ public class FindEventController {
     FindEventsPageUseCase findEventsPageUseCase;
     GetEventUseCase getEventUseCase;
 
+    @Operation(summary = "Get page of events")
+    @ApiResponse(responseCode = "200", description = "Page of events returned successfully")
     @GetMapping(PathUtil.EVENT)
-    public ResponseEntity<Page<EventDto>> find(final Pageable pageable) {
+    public ResponseEntity<Page<EventResponse>> find(@ParameterObject final Pageable pageable) {
 
         return ResponseEntity.ok(findEventsPageUseCase.find(pageable));
     }
 
+    @Operation(summary = "Get event by id")
+    @ApiResponse(responseCode = "200", description = "Event returned successfully")
     @GetMapping(PathUtil.EVENT_ID)
-    public ResponseEntity<EventDto> get(@PathVariable Long id) {
+    public ResponseEntity<EventResponse> get(@Parameter(description = "Id of wanted event") @PathVariable Long id) {
 
         return ResponseEntity.ok(getEventUseCase.get(id));
     }

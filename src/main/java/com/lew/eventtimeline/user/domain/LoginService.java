@@ -1,23 +1,19 @@
 package com.lew.eventtimeline.user.domain;
 
 import com.lew.eventtimeline.common.security.JwtTokenProvider;
-import com.lew.eventtimeline.common.security.LoginAttemptService;
 import com.lew.eventtimeline.common.security.SecurityConstant;
 import com.lew.eventtimeline.user.domain.mapper.UserMapper;
 import com.lew.eventtimeline.user.domain.port.api.LoginUseCase;
-import com.lew.eventtimeline.user.domain.port.api.UserDto;
+import com.lew.eventtimeline.user.domain.port.api.UserResponse;
+import com.lew.eventtimeline.user.domain.port.api.UserRequest;
 import com.lew.eventtimeline.user.domain.port.db.UserRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -34,11 +30,11 @@ class LoginService implements LoginUseCase {
     JwtTokenProvider jwtTokenProvider;
 
     @Override
-    public ResponseEntity<UserDto> login(UserDto userDto) {
+    public ResponseEntity<UserResponse> login(UserRequest userRequest) {
         authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(userDto.getUsername(), userDto.getPassword()));
+                new UsernamePasswordAuthenticationToken(userRequest.getUsername(), userRequest.getPassword()));
 
-        User user = userRepository.findByUsername(userDto.getUsername())
+        User user = userRepository.findByUsername(userRequest.getUsername())
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
         HttpHeaders jwtHttpHeader = createJwtHttpHeader(user);

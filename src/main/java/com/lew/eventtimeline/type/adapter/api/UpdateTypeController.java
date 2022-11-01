@@ -1,8 +1,12 @@
 package com.lew.eventtimeline.type.adapter.api;
 
 import com.lew.eventtimeline.common.PathUtil;
-import com.lew.eventtimeline.event.domain.port.api.EventDto;
-import com.lew.eventtimeline.event.domain.port.api.UpdateEventUseCase;
+import com.lew.eventtimeline.event.domain.port.api.EventResponse;
+import com.lew.eventtimeline.type.domain.port.api.TypeDto;
+import com.lew.eventtimeline.type.domain.port.api.UpdateTypeUseCase;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -19,11 +23,15 @@ import javax.validation.Valid;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class UpdateTypeController {
 
-    UpdateEventUseCase updateEventUseCase;
+    UpdateTypeUseCase updateTypeUseCase;
 
+    @Operation(summary = "Update existing type")
+    @ApiResponse(responseCode = "200", description = "Type updated successfully")
     @PutMapping(PathUtil.TYPE_ID)
-    public ResponseEntity<EventDto> update(@Valid @RequestBody EventDto eventDto, @PathVariable Long id) {
+    public ResponseEntity<TypeDto> update(@Valid @RequestBody TypeDto typeDto,
+                                          @Parameter(description = "Id of type which will be updated")
+                                          @PathVariable Long id) {
 
-        return ResponseEntity.ok(updateEventUseCase.update(eventDto, id));
+        return ResponseEntity.ok(updateTypeUseCase.update(typeDto, id));
     }
 }

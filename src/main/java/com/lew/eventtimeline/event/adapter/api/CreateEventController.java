@@ -2,7 +2,10 @@ package com.lew.eventtimeline.event.adapter.api;
 
 import com.lew.eventtimeline.common.PathUtil;
 import com.lew.eventtimeline.event.domain.port.api.CreateEventUseCase;
-import com.lew.eventtimeline.event.domain.port.api.EventDto;
+import com.lew.eventtimeline.event.domain.port.api.EventResponse;
+import com.lew.eventtimeline.event.domain.port.api.EventRequest;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -20,8 +23,10 @@ public class CreateEventController {
 
     CreateEventUseCase createEventUseCase;
 
+    @Operation(summary = "Create new event")
+    @ApiResponse(responseCode = "200", description = "Event created successfully")
     @PostMapping(PathUtil.EVENT)
-    public ResponseEntity<EventDto> create(@RequestBody @Valid EventDto eventRequest) {
+    public ResponseEntity<EventResponse> create(@Valid @RequestBody EventRequest eventRequest) {
 
         return ResponseEntity.ok(createEventUseCase.create(eventRequest));
     }

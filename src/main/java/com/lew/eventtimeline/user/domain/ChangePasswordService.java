@@ -1,7 +1,7 @@
 package com.lew.eventtimeline.user.domain;
 
 import com.lew.eventtimeline.user.domain.port.api.ChangePasswordUseCase;
-import com.lew.eventtimeline.user.domain.port.api.UserDto;
+import com.lew.eventtimeline.user.domain.port.api.UserRequest;
 import com.lew.eventtimeline.user.domain.port.db.UserRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -19,11 +19,11 @@ class ChangePasswordService implements ChangePasswordUseCase {
     BCryptPasswordEncoder passwordEncoder;
 
     @Override
-    public void change(UserDto userDto) {
-        User user = userRepository.findByUsername(userDto.getUsername())
+    public void change(String username, UserRequest userRequest) {
+        User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
-        user.setPassword(encodePassword(userDto.getPassword()));
+        user.setPassword(encodePassword(userRequest.getPassword()));
 
         userRepository.save(user);
     }

@@ -2,7 +2,7 @@ package com.lew.eventtimeline.event.domain;
 
 import com.lew.eventtimeline.common.exception.EventNotFoundException;
 import com.lew.eventtimeline.event.domain.mapper.EventMapper;
-import com.lew.eventtimeline.event.domain.port.api.EventDto;
+import com.lew.eventtimeline.event.domain.port.api.EventResponse;
 import com.lew.eventtimeline.event.domain.port.api.GetEventUseCase;
 import com.lew.eventtimeline.event.domain.port.db.EventRepository;
 import lombok.AccessLevel;
@@ -18,9 +18,9 @@ public class GetEventService implements GetEventUseCase {
     EventRepository eventRepository;
 
     @Override
-    public EventDto get(Long id) {
+    public EventResponse get(Long id) {
         return eventRepository.findById(id)
-                .map(EventMapper.INSTANCE::eventToEventDto)
+                .map(EventMapper.INSTANCE::eventToEventResponse)
                 .orElseThrow(() -> new EventNotFoundException(id));
     }
 }

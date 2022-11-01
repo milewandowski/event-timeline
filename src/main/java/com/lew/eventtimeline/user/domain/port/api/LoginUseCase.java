@@ -4,5 +4,5 @@ import org.springframework.http.ResponseEntity;
 
 public interface LoginUseCase {
 
-    ResponseEntity<UserDto> login(UserDto userDto);
+    ResponseEntity<UserResponse> login(UserRequest userDto);
 }

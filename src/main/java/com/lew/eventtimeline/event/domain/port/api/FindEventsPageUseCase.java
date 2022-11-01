@@ -5,5 +5,5 @@ import org.springframework.data.domain.Pageable;
 
 public interface FindEventsPageUseCase {
 
-    Page<EventDto> find(Pageable pageable);
+    Page<EventResponse> find(Pageable pageable);
 }

@@ -8,24 +8,20 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
+@Validated
 @Getter
 @Setter
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Validated
-public class UserDto {
-
-    Long id;
+public class UserRequest {
 
     @NotBlank
+    @Size(min = 1, max = 32)
     String username;
 
     @NotBlank
+    @Size(min = 1, max = 64)
     String password;
-
-    String role;
-    String[] authorities;
-    boolean isActive;
-    boolean isNotLocked;
 }

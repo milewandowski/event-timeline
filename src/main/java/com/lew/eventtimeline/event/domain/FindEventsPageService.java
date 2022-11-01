@@ -1,7 +1,7 @@
 package com.lew.eventtimeline.event.domain;
 
 import com.lew.eventtimeline.event.domain.mapper.EventMapper;
-import com.lew.eventtimeline.event.domain.port.api.EventDto;
+import com.lew.eventtimeline.event.domain.port.api.EventResponse;
 import com.lew.eventtimeline.event.domain.port.api.FindEventsPageUseCase;
 import com.lew.eventtimeline.event.domain.port.db.EventRepository;
 import lombok.AccessLevel;
@@ -19,8 +19,8 @@ class FindEventsPageService implements FindEventsPageUseCase {
     EventRepository eventRepository;
 
     @Override
-    public Page<EventDto> find(Pageable pageable) {
+    public Page<EventResponse> find(Pageable pageable) {
         return eventRepository.findAll(pageable)
-                .map(EventMapper.INSTANCE::eventToEventDto);
+                .map(EventMapper.INSTANCE::eventToEventResponse);
     }
 }

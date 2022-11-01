@@ -2,8 +2,11 @@ package com.lew.eventtimeline.event.domain;
 
 import com.lew.eventtimeline.event.domain.mapper.EventMapper;
 import com.lew.eventtimeline.event.domain.port.api.CreateEventUseCase;
-import com.lew.eventtimeline.event.domain.port.api.EventDto;
+import com.lew.eventtimeline.event.domain.port.api.EventResponse;
+import com.lew.eventtimeline.event.domain.port.api.EventRequest;
 import com.lew.eventtimeline.event.domain.port.db.EventRepository;
+import com.lew.eventtimeline.type.domain.Type;
+import com.lew.eventtimeline.type.domain.port.GetDbTypeUseCase;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -15,11 +18,14 @@ import org.springframework.stereotype.Service;
 class CreateEventService implements CreateEventUseCase {
 
     EventRepository eventRepository;
+    GetDbTypeUseCase getDbTypeUseCase;
 
     @Override
-    public EventDto create(EventDto eventRequest) {
-        Event newEvent = eventRepository.save(EventMapper.INSTANCE.eventDtoToEvent(eventRequest));
+    public EventResponse create(EventRequest eventRequest) {
+        Type type = getDbTypeUseCase.get(eventRequest.getTypeId());
 
-        return EventMapper.INSTANCE.eventToEventDto(newEvent);
+        Event newEvent = eventRepository.save(EventMapper.INSTANCE.eventRequestToEvent(eventRequest, type));
+
+        return EventMapper.INSTANCE.eventToEventResponse(newEvent);
     }
 }
