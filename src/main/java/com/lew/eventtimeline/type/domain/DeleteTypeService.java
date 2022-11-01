@@ -1,6 +1,6 @@
 package com.lew.eventtimeline.type.domain;
 
-import com.lew.eventtimeline.common.TypeNotFoundException;
+import com.lew.eventtimeline.common.exception.TypeNotFoundException;
 import com.lew.eventtimeline.type.domain.port.api.DeleteTypeUseCase;
 import com.lew.eventtimeline.type.domain.port.db.TypeRepository;
 import lombok.AccessLevel;

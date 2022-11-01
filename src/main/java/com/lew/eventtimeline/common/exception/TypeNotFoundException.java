@@ -1,4 +1,4 @@
-package com.lew.eventtimeline.common;
+package com.lew.eventtimeline.common.exception;
 
 public class TypeNotFoundException extends RuntimeException {
 

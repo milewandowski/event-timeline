@@ -9,3 +9,10 @@ spring:
     username: sa
     password: sa
     driverClassName: org.h2.Driver
+
+server:
+  error:
+    path: /error
+
+jwt:
+  secret: $$eTnt-$23tOmE#-DAw14l

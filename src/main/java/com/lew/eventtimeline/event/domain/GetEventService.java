@@ -1,6 +1,6 @@
 package com.lew.eventtimeline.event.domain;
 
-import com.lew.eventtimeline.common.EventNotFoundException;
+import com.lew.eventtimeline.common.exception.EventNotFoundException;
 import com.lew.eventtimeline.event.domain.mapper.EventMapper;
 import com.lew.eventtimeline.event.domain.port.api.EventDto;
 import com.lew.eventtimeline.event.domain.port.api.GetEventUseCase;

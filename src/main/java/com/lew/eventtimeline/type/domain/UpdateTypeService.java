@@ -1,6 +1,6 @@
 package com.lew.eventtimeline.type.domain;
 
-import com.lew.eventtimeline.common.TypeNotFoundException;
+import com.lew.eventtimeline.common.exception.TypeNotFoundException;
 import com.lew.eventtimeline.type.domain.mapper.TypeMapper;
 import com.lew.eventtimeline.type.domain.port.api.TypeDto;
 import com.lew.eventtimeline.type.domain.port.api.UpdateTypeUseCase;
