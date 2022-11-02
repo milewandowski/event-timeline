@@ -23,12 +23,16 @@ public class Event {
 
     String name;
     String shortDesc;
+
+    @Column(length = 1024)
     String longDesc;
+
+    @Column(length = 512)
     String imageUrl;
     LocalDate startDate;
     LocalDate endDate;
 
     @ManyToOne
-    @JoinColumn(name="event_id", nullable=false)
+    @JoinColumn(name="type_id", nullable=false)
     Type type;
 }
