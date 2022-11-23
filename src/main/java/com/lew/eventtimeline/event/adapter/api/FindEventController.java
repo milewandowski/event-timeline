@@ -13,10 +13,15 @@ import lombok.experimental.FieldDefaults;
 import org.springdoc.api.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.time.LocalDate;
+
 
 @RestController
 @RequiredArgsConstructor
@@ -29,9 +34,15 @@ public class FindEventController {
     @Operation(summary = "Get page of events")
     @ApiResponse(responseCode = "200", description = "Page of events returned successfully")
     @GetMapping(PathUtil.EVENT)
-    public ResponseEntity<Page<EventResponse>> find(@ParameterObject final Pageable pageable) {
+    public ResponseEntity<Page<EventResponse>> find(@RequestParam(name = "fromStartDate", required = false)
+                                                    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+                                                    LocalDate fromStartDate,
+                                                    @RequestParam(name = "fromEndDate", required = false)
+                                                    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+                                                    LocalDate fromEndDate,
+                                                    @ParameterObject Pageable pageable) {
 
-        return ResponseEntity.ok(findEventsPageUseCase.find(pageable));
+        return ResponseEntity.ok(findEventsPageUseCase.find(fromStartDate, fromEndDate, pageable));
     }
 
     @Operation(summary = "Get event by id")

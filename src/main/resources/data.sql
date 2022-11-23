@@ -1,6 +1,6 @@
-INSERT INTO type (name, color) VALUES ('On-boarding', '#E6E6FA');
-INSERT INTO type (name, color) VALUES ('Signed Client', '#E6E6FA');
-INSERT INTO type (name, color) VALUES ('Migration of Systems', '#E7F1FB');
+INSERT INTO type (name, color) VALUES ('On-boarding', 'face');
+INSERT INTO type (name, color) VALUES ('Signed Client', 'celebration');
+INSERT INTO type (name, color) VALUES ('Migration of Systems', 'cloud');
 
 
 INSERT INTO event (name, short_desc, long_desc, image_url, start_date, type_id)
