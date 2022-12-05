@@ -21,9 +21,14 @@ public class InsertAdminUserService {
 
     @EventListener(ContextRefreshedEvent.class)
     public void insertAdminUser() {
+        createUser("admin", "admin1234");
+        createUser("user", "user1234");
+    }
+
+    private void createUser(String username, String password) {
         User user = User.builder()
-                .username("admin")
-                .password(passwordEncoder.encode("admin1234"))
+                .username(username)
+                .password(passwordEncoder.encode(password))
                 .role(Role.ROLE_ADMIN.name())
                 .authorities(Role.ROLE_ADMIN.getAuthorities())
                 .isActive(true)
